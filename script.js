@@ -46,8 +46,10 @@ let timer;
 
 // Questions 
 const questions = [
-    {question: "Question 1", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 0},
-    {question: "Question 2", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 1}
+    {question: "Commonly used data types DO Not Include:", options: ["String","Alerts","Booleans","Numbers"], answer: 1},
+    {question: "Question 2", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 1},
+    {question: "Question 3", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 2},
+    {question: "Question 4", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 1}
 ];
 
 let currentQuestion;
@@ -129,9 +131,15 @@ function saveResults(initials){
 }
 
 function loadQuestionsContent(){
+    // Parent card
+    const parentCard = document.createElement("div");
+    parentCard.classList.add("card");
+
     // Display current question text
     const questionText = questions[currentQuestion]['question'];
     const questionTextNode = document.createElement("div");
+    // TODO
+    
     const textnode = document.createTextNode(questionText);
     questionTextNode.appendChild(textnode);
     
@@ -151,8 +159,9 @@ function loadQuestionsContent(){
 
     // Append all to main content element
     mainContentElement.innerHTML = "";
-    mainContentElement.appendChild(questionTextNode);
-    mainContentElement.appendChild(questionOptionsNode);
+    parentCard.appendChild(questionTextNode);
+    parentCard.appendChild(questionOptionsNode);
+    mainContentElement.appendChild(parentCard);
 }
 
 function handleResponse(answer){
