@@ -8,7 +8,8 @@ window.addEventListener('load', (event) => {
   const startButtonName = "start_button";
   // Content
   const content = {
-    startPage: `<h1>Welcome</h1><button id=${startButtonName}>Start Quiz</button>`
+    startPage: `<h1>Welcome</h1><button id=${startButtonName}>Start Quiz</button>`,
+    highScore: `High Score Page`
   };
   // Elements
   const mainContent = document.getElementById('content');
@@ -21,12 +22,13 @@ window.addEventListener('load', (event) => {
   }
 
   function attachScoreEventListener(){
-
+    const highScoreElement = document.getElementById('high_score');
+    highScoreElement.addEventListener ("click", displayHighScores);
   }
 
   function attachStartButtonEventListener(){
-    const startButton = document.getElementById('content');
-    startButton.addEventListener ("click", startQuiz);
+    const startButtonElement = document.getElementById('content');
+    startButtonElement.addEventListener ("click", startQuiz);
   }
 
   function loadTimer(){
@@ -34,11 +36,18 @@ window.addEventListener('load', (event) => {
   }
 
   function loadStartPageContent(){
-    mainContent.innerHTML = content['startPage'];
+    displayMainContent('startPage');
   }
 
   function startQuiz(){
-    alert('Start Quiz...');
+    
   }
 
+  function displayHighScores(){
+    displayMainContent('highScore');
+  }
+
+  function displayMainContent(contentName){
+    mainContent.innerHTML = content[contentName];
+  }
 
