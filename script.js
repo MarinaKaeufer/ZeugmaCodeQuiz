@@ -1,10 +1,10 @@
 window.addEventListener('load', (event) => {
-    console.log('page is fully loaded');
     init();
   });
 
 // Score 
 let score;
+
 // ID names 
 const startButtonName = "start_button";
 const scoreSpanName = "score_results";
@@ -12,7 +12,7 @@ const submitScoreButtonName = "score_initials_submit";
 const userInitialsName = "user_initials";
 const startOverName = "start_over";
 
-// Content
+// HTML Content
 const content = {
     startPage: () => `<h1>Welcome</h1>
         <button id=${startButtonName}>Start Quiz</button>`,
@@ -34,18 +34,22 @@ const content = {
             <button id=${submitScoreButtonName}>Submit</button>
         </div>`,
 };
+
 // Elements
 const mainContentElement = document.getElementById('content');
 const timerElement = document.getElementById('timer');
+
 // Timer 
 const initialTime = 60;
 let timeleft;
 let timer; 
+
 // Questions 
 const questions = [
     {question: "Question 1", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 0},
     {question: "Question 2", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 1}
 ];
+
 let currentQuestion;
 
 function init(){
@@ -152,26 +156,19 @@ function loadQuestionsContent(){
 }
 
 function handleResponse(answer){
-    // TODO
-    console.log(`For question ${currentQuestion} you responded with ${answer}`);
     // Check if response is false, if so subtract from time
     if(answer !== questions[currentQuestion].answer){
-        
-        // TODO 
-        // alert(`Wrong Choice`);
+        alert(`Wrong Choice`);
         subtractTime();
     } else {
-        score =+ 1;
-        // TODO
-        // alert(`Correct Choice`);
+        score++;
+        alert(`Correct Choice`);
     }
     // Go to next question of show final page with results / score
     if(currentQuestion + 1 < questions.length){
         currentQuestion =+ 1;
         loadQuestionsContent();
     } else {
-        // TODO
-        console.log(`score ${score}`);
         endQuiz();
     }
 }
