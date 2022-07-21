@@ -3,35 +3,62 @@ window.addEventListener('load', (event) => {
 
     init();
   });
+
 // Score 
-let score = 0;
+let score;
 // ID names 
 const startButtonName = "start_button";
+const scoreSpanName = "score_results";
+const submitScoreButtonName = "score_initials_submit";
+const userInitialsName = "user_initials";
 // Content
 const content = {
-    startPage: `<h1>Welcome</h1><button id=${startButtonName}>Start Quiz</button>`,
-    highScore: `High Score Page`,
-    finalPage: `Final Page with score ${score}`,
+    startPage: () => `<h1>Welcome</h1>
+        <button id=${startButtonName}>Start Quiz</button>`,
+    highScore: () => {
+        const scoreArray = getScores();
+        let individualScores = ``;
+        console.log(`scoreArray ${JSON.stringify(scoreArray)}`);
+        console.log(`scoreArray[0] ${JSON.stringify(scoreArray[0])}`);
+        console.log(`typeof scoreArray ${typeof scoreArray}`);
+        for(let i = 0; i < scoreArray.length; i++){
+            individualScores += `<li>${scoreArray[i]['initials']} : ${scoreArray[i]['score']}</li>`
+        }
+        
+        return `<div>High Scores Page</div>
+        <ul>${individualScores}</ul>`
+    },
+    finalPage: () => `Final Page with score 
+        <span id=${scoreSpanName}></span>
+        <div>
+            <input id=${userInitialsName}></input>
+            <button id=${submitScoreButtonName}>Submit</button>
+        </div>`,
 };
 // Elements
 const mainContentElement = document.getElementById('content');
 const timerElement = document.getElementById('timer');
 // Timer 
 const initialTime = 60;
-let timeleft = initialTime;
+let timeleft;
 let timer; 
 // Questions 
 const questions = [
     {question: "Question 1", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 0},
     {question: "Question 2", options: ["Option 1","Option 2","Option 3","Option 4"], answer: 1}
 ];
-let currentQuestion = 0;
+let currentQuestion;
 
 function init(){
+    resetQuizParams();
     attachScoreEventListener();
     loadStartPageContent();
     attachStartButtonEventListener();
     loadInitialTimer();
+}
+
+function getScores(){
+    return JSON.parse(localStorage.getItem("results")) ? JSON.parse(localStorage.getItem("results")) : [];
 }
 
 function attachScoreEventListener(){
@@ -77,6 +104,21 @@ function startTimer(){
 
 function loadFinalPage(){
     displayMainContent('finalPage');
+    const scoreSpanElement = document.getElementById(scoreSpanName);
+    // TODO Score does not reflect accurately
+    scoreSpanElement.innerHTML = score;
+    
+    document.getElementById(submitScoreButtonName).addEventListener ("click", () => {
+        const userInitiasValues = document.getElementById(userInitialsName).value;
+        saveResults(userInitiasValues);
+    });;
+}
+
+function saveResults(initials){
+    const resultObj = {initials: initials, score: score};
+    const scoreArray = getScores()
+    scoreArray.push(resultObj);
+    localStorage.setItem("results", JSON.stringify(scoreArray));
 }
 
 function loadQuestionsContent(){
@@ -106,22 +148,25 @@ function loadQuestionsContent(){
     mainContentElement.appendChild(questionOptionsNode);
 }
 
-
 function handleResponse(answer){
     console.log(`For question ${currentQuestion} you responded with ${answer}`);
     // Check if response is false, if so subtract from time
     if(answer !== questions[currentQuestion].answer){
-        console.log(`Incorrect response`);
+        
+        // TODO 
+        // alert(`Wrong Choice`);
         subtractTime();
     } else {
-        score += 1;
-        console.log(`Correct response`);
+        score =+ 1;
+        // TODO
+        // alert(`Correct Choice`);
     }
     // Go to next question of show final page with results / score
     if(currentQuestion + 1 < questions.length){
         currentQuestion =+ 1;
         loadQuestionsContent();
     } else {
+        console.log(`score ${score}`);
         endQuiz();
     }
 }
@@ -132,7 +177,6 @@ function subtractTime(){
 
 function endQuiz(){
     loadFinalPage();
-    resetQuizParams();
 }
 
 function resetQuizParams(){
@@ -142,5 +186,5 @@ function resetQuizParams(){
 }
 
 function displayMainContent(contentName){
-    mainContentElement.innerHTML = content[contentName];
+    mainContentElement.innerHTML = content[contentName]();
 }
