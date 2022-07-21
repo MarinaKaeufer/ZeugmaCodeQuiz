@@ -4,50 +4,71 @@ window.addEventListener('load', (event) => {
     init();
   });
 
-  // ID names 
-  const startButtonName = "start_button";
-  // Content
-  const content = {
+// ID names 
+const startButtonName = "start_button";
+// Content
+const content = {
     startPage: `<h1>Welcome</h1><button id=${startButtonName}>Start Quiz</button>`,
     highScore: `High Score Page`
-  };
-  // Elements
-  const mainContent = document.getElementById('content');
+};
+// Elements
+const mainContentElement = document.getElementById('content');
+const timerElement = document.getElementById('timer');
+// Timer 
+var timeleft = 60;
+var timer; 
+// Questions 
 
-  function init(){
+
+function init(){
     attachScoreEventListener();
     loadStartPageContent();
     attachStartButtonEventListener();
     loadTimer();
-  }
+}
 
-  function attachScoreEventListener(){
-    const highScoreElement = document.getElementById('high_score');
+function attachScoreEventListener(){
+    const highScoreElement = document.getElementById('high_score'); 
     highScoreElement.addEventListener ("click", displayHighScores);
-  }
+}
 
-  function attachStartButtonEventListener(){
+function attachStartButtonEventListener(){
     const startButtonElement = document.getElementById('content');
     startButtonElement.addEventListener ("click", startQuiz);
-  }
+}
 
-  function loadTimer(){
+function loadTimer(){
+    timerElement.innerHTML = timeleft;
+}
 
-  }
-
-  function loadStartPageContent(){
+function loadStartPageContent(){
     displayMainContent('startPage');
-  }
+}
 
-  function startQuiz(){
-    
-  }
+function startQuiz(){
+    startTimer();
+    loadQuestionsContent();
+}
 
-  function displayHighScores(){
+function displayHighScores(){
     displayMainContent('highScore');
-  }
+}
 
-  function displayMainContent(contentName){
-    mainContent.innerHTML = content[contentName];
-  }
+function startTimer(){
+    timer = setInterval(function(){
+        if(timeleft <= 0){
+            clearInterval(timer);
+        }
+        timerElement.innerHTML = timeleft;
+        timeleft -= 1;
+        }, 1000);
+}
 
+function loadQuestionsContent(){
+    
+}
+
+
+function displayMainContent(contentName){
+    mainContentElement.innerHTML = content[contentName];
+}
