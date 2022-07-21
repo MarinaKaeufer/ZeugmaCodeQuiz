@@ -1,6 +1,5 @@
 window.addEventListener('load', (event) => {
     console.log('page is fully loaded');
-
     init();
   });
 
@@ -11,6 +10,8 @@ const startButtonName = "start_button";
 const scoreSpanName = "score_results";
 const submitScoreButtonName = "score_initials_submit";
 const userInitialsName = "user_initials";
+const startOverName = "start_over";
+
 // Content
 const content = {
     startPage: () => `<h1>Welcome</h1>
@@ -18,15 +19,13 @@ const content = {
     highScore: () => {
         const scoreArray = getScores();
         let individualScores = ``;
-        console.log(`scoreArray ${JSON.stringify(scoreArray)}`);
-        console.log(`scoreArray[0] ${JSON.stringify(scoreArray[0])}`);
-        console.log(`typeof scoreArray ${typeof scoreArray}`);
         for(let i = 0; i < scoreArray.length; i++){
             individualScores += `<li>${scoreArray[i]['initials']} : ${scoreArray[i]['score']}</li>`
         }
         
         return `<div>High Scores Page</div>
-        <ul>${individualScores}</ul>`
+        <ul>${individualScores}</ul>
+        <button id=${startOverName}>Start Over</button>`
     },
     finalPage: () => `Final Page with score 
         <span id=${scoreSpanName}></span>
@@ -50,10 +49,8 @@ const questions = [
 let currentQuestion;
 
 function init(){
-    resetQuizParams();
     attachScoreEventListener();
     loadStartPageContent();
-    attachStartButtonEventListener();
     loadInitialTimer();
 }
 
@@ -77,23 +74,28 @@ function loadInitialTimer(){
 
 function loadStartPageContent(){
     displayMainContent('startPage');
+    attachStartButtonEventListener();
 }
 
 function startQuiz(){
+    resetQuizParams();
     startTimer();
     loadQuestionsContent();
 }
 
 function displayHighScores(){
     displayMainContent('highScore');
+    const startOverElement = document.getElementById(startOverName);
+    startOverElement.addEventListener ("click", () => {
+        resetQuizParams();
+        loadStartPageContent();
+    })
+    
 }
 
 function startTimer(){
     timer = setInterval(function(){
         if(timeleft <= 0){
-            console.log(`Time up`);
-            // TODO Stop timer
-            clearInterval(timer);
             // End Quiz and show results / score
             endQuiz();
         }
@@ -111,7 +113,8 @@ function loadFinalPage(){
     document.getElementById(submitScoreButtonName).addEventListener ("click", () => {
         const userInitiasValues = document.getElementById(userInitialsName).value;
         saveResults(userInitiasValues);
-    });;
+        displayHighScores();
+    });
 }
 
 function saveResults(initials){
@@ -149,6 +152,7 @@ function loadQuestionsContent(){
 }
 
 function handleResponse(answer){
+    // TODO
     console.log(`For question ${currentQuestion} you responded with ${answer}`);
     // Check if response is false, if so subtract from time
     if(answer !== questions[currentQuestion].answer){
@@ -166,6 +170,7 @@ function handleResponse(answer){
         currentQuestion =+ 1;
         loadQuestionsContent();
     } else {
+        // TODO
         console.log(`score ${score}`);
         endQuiz();
     }
@@ -176,6 +181,7 @@ function subtractTime(){
 }
 
 function endQuiz(){
+    clearInterval(timer);
     loadFinalPage();
 }
 
