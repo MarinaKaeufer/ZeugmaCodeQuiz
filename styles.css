@@ -30,6 +30,9 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 40%;
+    text-align: center;
+    padding: 10%;
+    margin-top: 10%;
   }
   
   .card:hover {
@@ -38,5 +41,55 @@
   
   .container {
     padding: 2px 16px;
+  }
+
+  #content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .questionText {
+    margin-bottom: 5%;
+    font-family: Impact, fantasy;
+    font-size: xx-large;
+  }
+
+
+  .questionOptionNode {
+    display: block;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 3%;
+  }
+  
+  .questionOptionNode:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .questionOptionNode:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
   }
   

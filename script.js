@@ -56,12 +56,24 @@ let currentQuestion;
 
 function init(){
     attachScoreEventListener();
+    attachHomeQuizEventListener();
+    loadStartPageContent();
+    loadInitialTimer();
+}
+
+function goToHomePage(){
+    clearInterval(timer);
     loadStartPageContent();
     loadInitialTimer();
 }
 
 function getScores(){
     return JSON.parse(localStorage.getItem("results")) ? JSON.parse(localStorage.getItem("results")) : [];
+}
+
+function attachHomeQuizEventListener(){
+    const quizHomeElement = document.getElementById('quiz_home'); 
+    quizHomeElement.addEventListener ("click",  goToHomePage);
 }
 
 function attachScoreEventListener(){
@@ -138,17 +150,18 @@ function loadQuestionsContent(){
     // Display current question text
     const questionText = questions[currentQuestion]['question'];
     const questionTextNode = document.createElement("div");
-    // TODO
-    
+    questionTextNode.classList.add("questionText");
     const textnode = document.createTextNode(questionText);
     questionTextNode.appendChild(textnode);
     
     // Display current question options
     const questionOptions = questions[currentQuestion]['options'];
     const questionOptionsNode = document.createElement("div");
+    questionOptionsNode.classList.add("questionOptionsNode");
     questionOptions.forEach((option,index) => {
         const optionTextnode = document.createTextNode(option);
         const questionOptionNode = document.createElement("button");
+        questionOptionNode.classList.add("questionOptionNode");
         questionOptionNode.addEventListener("click", function () {
             handleResponse(index);
           });
