@@ -11,11 +11,14 @@ const scoreSpanName = "score_results";
 const submitScoreButtonName = "score_initials_submit";
 const userInitialsName = "user_initials";
 const startOverName = "start_over";
+const welcomeTitleName = "welcome_title";
+const greenButtonName = "green_button";
+const headerText = "header_text";
 
 // HTML Content
 const content = {
-    startPage: () => `<h1>Welcome</h1>
-        <button id=${startButtonName}>Start Quiz</button>`,
+    startPage: () => `<div><div id=${welcomeTitleName}>Welcome</div></br>
+        <button id=${startButtonName} class=${greenButtonName}>Start Quiz</button></div>`,
     highScore: () => {
         const scoreArray = getScores();
         let individualScores = ``;
@@ -27,8 +30,8 @@ const content = {
         <ul>${individualScores}</ul>
         <button id=${startOverName}>Start Over</button>`
     },
-    finalPage: () => `Final Page with score 
-        <span id=${scoreSpanName}></span>
+    finalPage: () => `<div class=${headerText}>Your Score Was:</div>
+        <span id=${scoreSpanName}> </span>
         <div>
             <input id=${userInitialsName}></input>
             <button id=${submitScoreButtonName}>Submit</button>
@@ -118,7 +121,7 @@ function startTimer(){
             endQuiz();
         }
         timerElement.innerHTML = timeleft;
-        timeleft -= 1;
+        timeleft--;
         }, 1000);
 }
 
@@ -143,6 +146,7 @@ function saveResults(initials){
 }
 
 function loadQuestionsContent(){
+    console.log(`==> loadQuestionsContent`);
     // Parent card
     const parentCard = document.createElement("div");
     parentCard.classList.add("card");
@@ -162,6 +166,7 @@ function loadQuestionsContent(){
         const optionTextnode = document.createTextNode(option);
         const questionOptionNode = document.createElement("button");
         questionOptionNode.classList.add("questionOptionNode");
+        questionOptionNode.classList.add(greenButtonName);
         questionOptionNode.addEventListener("click", function () {
             handleResponse(index);
           });
@@ -178,6 +183,10 @@ function loadQuestionsContent(){
 }
 
 function handleResponse(answer){
+    console.log(` `);
+    console.log(` `);
+    console.log(`==> handleResponse currentQuestion ${currentQuestion}`);
+    console.log(`==> handleResponse answer ${answer}`);
     // Check if response is false, if so subtract from time
     if(answer !== questions[currentQuestion].answer){
         alert(`Wrong Choice`);
@@ -188,7 +197,8 @@ function handleResponse(answer){
     }
     // Go to next question of show final page with results / score
     if(currentQuestion + 1 < questions.length){
-        currentQuestion =+ 1;
+        currentQuestion++;
+        console.log(`==> handleResponse currentQuestion after increase ${currentQuestion}`);
         loadQuestionsContent();
     } else {
         endQuiz();
@@ -196,7 +206,7 @@ function handleResponse(answer){
 }
 
 function subtractTime(){
-    timeleft -= 10;
+    timeleft = timeleft - 10;
 }
 
 function endQuiz(){

@@ -55,8 +55,20 @@
     font-size: xx-large;
   }
 
+  .header_text {
+    margin-bottom: 5%;
+    font-family: Impact, fantasy;
+    font-size: xx-large;
+  }
 
-  .questionOptionNode {
+  #welcome_title {
+    font-family: Impact, fantasy;
+    font-size: xxx-large;
+    margin-bottom: 10%;
+    margin-top: 10%;
+  }
+
+  .green_button {
     display: block;
     position: relative;
     background-color: #4CAF50;
@@ -73,7 +85,7 @@
     margin-bottom: 3%;
   }
   
-  .questionOptionNode:after {
+  .green_button:after {
     content: "";
     background: #f1f1f1;
     display: block;
@@ -86,7 +98,7 @@
     transition: all 0.8s
   }
   
-  .questionOptionNode:active:after {
+  .green_button:active:after {
     padding: 0;
     margin: 0;
     opacity: 1;
