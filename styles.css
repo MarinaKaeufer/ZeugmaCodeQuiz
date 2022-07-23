@@ -105,3 +105,139 @@
     transition: 0s
   }
   
+  input {
+    background: 0;
+    border: 0;
+    outline: none;
+    width: 80vw;
+    max-width: 400px;
+    font-size: 1.5em;
+    transition: padding 0.3s 0.2s ease;
+  }
+  input:focus {
+    padding-bottom: 5px;
+  }
+  input:focus + .line:after {
+    transform: scaleX(1);
+  }
+  .field {
+    position: relative;
+  }
+  .field .line {
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: -8px;
+    background: #bdc3c7;
+  }
+  .field .line:after {
+    content: " ";
+    position: absolute;
+    float: right;
+    width: 100%;
+    height: 3px;
+    transform: scalex(0);
+    transition: transform 0.3s ease;
+    background: #1abc9c;
+  }
+
+  #score_initials_submit{
+    margin-top: 3%;
+  }
+
+
+  /* User Score  History */
+  .leaderboard {
+    max-width: 490px;
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 5%;
+  }
+  .leaderboard header {
+    --start: 50%;
+    height: 130px;
+    background-color: #04AA6D;
+    color: #fff;
+    position: relative;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+  }
+  .leaderboard header .leaderboard__title {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    right: calc(var(--start) * .75);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .leaderboard header .leaderboard__title span {
+    display: block;
+  }
+  .leaderboard header .leaderboard__title--top {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 6.5px;
+  }
+  .leaderboard header .leaderboard__title--bottom {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3.55px;
+    opacity: 0.65;
+  }
+  .leaderboard header .leaderboard__icon {
+    fill: #fff;
+    opacity: 0.35;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+  }
+  .leaderboard__profiles {
+    background-color: #fff;
+    border-radius: 0 0 12px 12px;
+    padding: 15px 15px 20px;
+    display: grid;
+  }
+  .leaderboard__profile {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    padding: 10px 30px 10px 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #fff;
+  }
+
+  .leaderboard__picture {
+    max-width: 100%;
+    width: 60px;
+    border-radius: 50%;
+  }
+  .leaderboard__name {
+    color: #979cb0;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.64px;
+    margin-left: 12px;
+  }
+  .leaderboard__value {
+    color: #35d8ac;
+    font-weight: 700;
+    font-size: 34px;
+    text-align: right;
+  }
+  .leaderboard__value > span {
+    opacity: 0.8;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 3px;
+  }
+  
+  .leaderboard {
+    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.4);
+  }
+
+  #start_over {
+    margin-top: 5%;
+  }
+  
