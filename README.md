@@ -13,6 +13,8 @@ Given I am taking a code quiz:
 
 ![Screen Shot 2022-07-22 at 9 26 07 PM](https://user-images.githubusercontent.com/100238144/180585254-cf6870fe-a375-4f2c-9fe3-07e54c5de3f4.png)
 
+![Screen Shot 2022-07-22 at 9 28 43 PM](https://user-images.githubusercontent.com/100238144/180585313-4abfb88a-8b4d-46a4-a369-12979d02f67b.png)
+
 ## The URL of deployed application: 
 
 https://marinakaeufer.github.io/ZeugmaCodeQuiz/
