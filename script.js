@@ -24,22 +24,22 @@ const content = {
         let individualScores = ``;
         for(let i = 0; i < scoreArray.length; i++){
             individualScores += `
-            <article class="leaderboard__profile">
-                <span class="leaderboard__name">${scoreArray[i]['initials']}</span>
-                <span class="leaderboard__value">${scoreArray[i]['score']}<span>Points</span></span>
+            <article class="scoreboard__profile">
+                <span class="scoreboard__name">${scoreArray[i]['initials']}</span>
+                <span class="scoreboard__value">${scoreArray[i]['score']}<span>Points</span></span>
             </article>
             `}
         
         return `
-        <article class="leaderboard">
+        <article class="scoreboard">
             <header>
-                <h1 class="leaderboard__title">
-                    <span class="leaderboard__title--top">Score</span>
-                    <span class="leaderboard__title--bottom">History</span>
+                <h1 class="scoreboard__title">
+                    <span class="scoreboard__title--top">Score</span>
+                    <span class="scoreboard__title--bottom">History</span>
                 </h1>
             </header>
   
-            <main class="leaderboard__profiles">
+            <main class="scoreboard__profiles">
                 <div class=${headerText}>High Scores Page</div>
                 ${individualScores}
                 <button id=${startOverName} class=${greenButtonName}>Start Over</button>
@@ -74,9 +74,9 @@ let timer;
 // Questions 
 const questions = [
     {question: "Commonly used data types DO Not Include:", options: ["String","Alerts","Booleans","Numbers"], answer: 1},
-    {question: "Arrays in JavaScript can be used to store:", options: ["numbers and strings","other arrays","booleans","all of the above"], answer: 4},
-    {question: "The condition in an if/else statement is enclosed with", options: ["quotes","curly brackets","parenthesis","square brackets"], answer: 3},
-    {question: "A very useful tool used during development and debugging for printing content to the debugger is", options: ["JavaScript","terminal/bash","for loops","console log"], answer: 4}
+    {question: "Arrays in JavaScript can be used to store:", options: ["numbers and strings","other arrays","booleans","all of the above"], answer: 3},
+    {question: "The condition in an if/else statement is enclosed with", options: ["quotes","curly brackets","parenthesis","square brackets"], answer: 2},
+    {question: "A very useful tool used during development and debugging for printing content to the debugger is", options: ["JavaScript","terminal/bash","for loops","console log"], answer: 3}
 ];
 
 let currentQuestion;
@@ -207,18 +207,15 @@ function loadQuestionsContent(){
 function handleResponse(answer){
     // Check if response is false, if so subtract from time
     if(answer !== questions[currentQuestion].answer){
-        // TODO
-        // alert(`Wrong Choice`);
+        alert(`Wrong Choice`);
         subtractTime();
     } else {
         score++;
-        // TODO
-        // alert(`Correct Choice`);
+        alert(`Correct Choice`);
     }
     // Go to next question of show final page with results / score
     if(currentQuestion + 1 < questions.length){
         currentQuestion++;
-        console.log(`==> handleResponse currentQuestion after increase ${currentQuestion}`);
         loadQuestionsContent();
     } else {
         endQuiz();
