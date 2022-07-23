@@ -22,10 +22,6 @@ https://github.com/MarinaKaeufer/ZeugmaCodeQuiz
 
 Marina Kaeufer
 
-## GitHub
-
-https://github.com/MarinaKaeufer/DowdySocialNetworkAPI
-
 ## Questions 
 
 If you have any questions about this projects, please contact me directly at marishutka@yahoo.com
